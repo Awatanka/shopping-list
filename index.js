@@ -1,3 +1,4 @@
+// Firebase initialization and database setup
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import {
   getDatabase,
@@ -7,10 +8,12 @@ import {
   remove,
 } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
+// Firebase app configuration
 const appSettings = {
   databaseURL: "https://realtime-database-317ee-default-rtdb.firebaseio.com/",
 };
 
+// Initialize Firebase app
 const app = initializeApp(appSettings);
 const database = getDatabase(app);
 const shoppingListInDB = ref(database, "shoppingList");
@@ -19,6 +22,7 @@ const inputFieldEl = document.getElementById("input-field");
 const addButtonEl = document.getElementById("add-button");
 const shoppingListEl = document.getElementById("shopping-list");
 
+// ... code for adding items to the shopping list and displaying them ...
 addButtonEl.addEventListener("click", function () {
   let inputValue = inputFieldEl.value;
   push(shoppingListInDB, inputValue);
@@ -33,8 +37,6 @@ onValue(shoppingListInDB, function (snapshot) {
 
     for (let i = 0; i < shoppingListArray.length; i++) {
       let currentItem = shoppingListArray[i];
-      let currentItemID = currentItem[0];
-      let currentItemValue = currentItem[1];
       appendItemToShoppingListEl(currentItem);
     }
   } else {
